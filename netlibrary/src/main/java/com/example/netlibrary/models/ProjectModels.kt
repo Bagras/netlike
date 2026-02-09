@@ -24,5 +24,5 @@ data class ProjectCreateRequest(
     val endDate: String,
     val descriptionSource: String,
     val category: String,
-    // Для Multipart загрузки используется File
+    val image: String?
 )

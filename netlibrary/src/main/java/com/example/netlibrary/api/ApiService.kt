@@ -8,6 +8,7 @@ import com.example.netlibrary.models.Order
 import com.example.netlibrary.models.PaginatedResponse
 import com.example.netlibrary.models.Product
 import com.example.netlibrary.models.Project
+import com.example.netlibrary.models.ProjectCreateRequest
 import com.example.netlibrary.models.Stock
 import com.example.netlibrary.models.User
 import com.example.netlibrary.models.UserCreateRequest
@@ -26,7 +27,7 @@ interface ApiService {
     suspend fun login(@Body request: AuthRequest): Response<AuthResponse>
 
     // Создание профиля
-    @POST("collections/users")
+    @POST("collections/users/records")
     suspend fun register(@Body request: UserCreateRequest): User
 
     @GET("collections/stocks/records")
@@ -66,7 +67,7 @@ interface ApiService {
 
     // Создание проекта
     @POST("collections/projects/records")
-    suspend fun createProject(@Part query: Project): Project
+    suspend fun createProject(@Part query: ProjectCreateRequest): Project
 
     // Получение информации о пользователе
     @GET("collections/users/records/{id}")

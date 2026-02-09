@@ -8,6 +8,7 @@ import com.example.netlibrary.models.CartItem
 import com.example.netlibrary.models.Order
 import com.example.netlibrary.models.Product
 import com.example.netlibrary.models.Project
+import com.example.netlibrary.models.ProjectCreateRequest
 import com.example.netlibrary.models.Stock
 import com.example.netlibrary.models.User
 import com.example.netlibrary.models.UserCreateRequest
@@ -26,20 +27,21 @@ class RepositoryImpl(private val remote: RemoteDataSource) : Repository {
         email: String,
         password: String,
         passwordConfirm: String,
-        userMiddleName: String,
-        userLastName: String,
+        surname: String,
+        patronymic: String,
         birthDate: String,
         gender: String,
-        userFirstName: String?
+        name: String?
     ): User {
         return remote.register(UserCreateRequest(
             email,
             password,
             passwordConfirm,
-            userMiddleName,
-            userLastName,
+            surname,
+            patronymic,
             birthDate,
-            gender
+            gender,
+            name
         ))
     }
 
@@ -78,12 +80,6 @@ class RepositoryImpl(private val remote: RemoteDataSource) : Repository {
     }
 
     override suspend fun createProject(
-        id: String,
-        collectionId: String,
-        collectionName: String,
-        created: String,
-        updated: String,
-        user: String,
         title: String,
         type: String,
         startDate: String,
@@ -92,13 +88,7 @@ class RepositoryImpl(private val remote: RemoteDataSource) : Repository {
         category: String,
         image: String?
     ): Project {
-        return remote.createProject(Project(
-            id,
-            collectionId,
-            collectionName,
-            created,
-            updated,
-            user,
+        return remote.createProject(ProjectCreateRequest(
             title,
             type,
             startDate,

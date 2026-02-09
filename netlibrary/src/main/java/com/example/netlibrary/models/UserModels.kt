@@ -10,9 +10,9 @@ data class User(
     val email: String,
     val emailVisibility: Boolean,
     val verified: Boolean,
-    val userFirstName: String?,
-    val userMiddleName: String?,
-    val userLastName: String?,
+    val name: String?,
+    val surname: String?,
+    val patronymic: String?,
     val birthDate: String?,
     val gender: String?
 )
@@ -22,9 +22,9 @@ data class UserCreateRequest(
     val email: String,
     val password: String,
     val passwordConfirm: String,
-    val userMiddleName: String,
-    val userLastName: String,
+    val surname: String,
+    val patronymic: String,
     val birthDate: String,
     val gender: String,
-    val userFirstName: String? = null
+    val name: String? = null
 )

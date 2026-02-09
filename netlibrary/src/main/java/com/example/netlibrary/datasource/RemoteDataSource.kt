@@ -10,6 +10,7 @@ import com.example.netlibrary.models.CartItem
 import com.example.netlibrary.models.Order
 import com.example.netlibrary.models.Product
 import com.example.netlibrary.models.Project
+import com.example.netlibrary.models.ProjectCreateRequest
 import com.example.netlibrary.models.Stock
 import com.example.netlibrary.models.User
 import com.example.netlibrary.models.UserCreateRequest
@@ -164,7 +165,7 @@ class RemoteDataSource(private val apiService: ApiService) {
         }
     }
 
-    suspend fun createProject(query: Project): Project{
+    suspend fun createProject(query: ProjectCreateRequest): Project{
         return try {
             apiService.createProject(query)
         }  catch (e: IOException) {

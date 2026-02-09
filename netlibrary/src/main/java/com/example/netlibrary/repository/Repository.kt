@@ -18,11 +18,11 @@ interface Repository {
         email: String,
         password: String,
         passwordConfirm: String,
-        userMiddleName: String,
-        userLastName: String,
+        surname: String,
+        patronymic: String,
         birthDate: String,
         gender: String,
-        userFirstName: String? = null
+        name: String? = null
     ): User
 
     suspend fun getStocks(): List<Stock>
@@ -42,12 +42,6 @@ interface Repository {
     suspend fun getProjects(): List<Project>
 
     suspend fun createProject(
-        id: String,
-        collectionId: String,
-        collectionName: String,
-        created: String,
-        updated: String,
-        user: String,
         title: String,
         type: String,
         startDate: String,
