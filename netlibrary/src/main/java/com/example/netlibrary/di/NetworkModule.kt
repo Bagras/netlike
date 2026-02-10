@@ -7,7 +7,7 @@ import com.example.netlibrary.repository.RepositoryImpl
 import com.example.netlibrary.retrofit.RetrofitClient
 
 object NetworkModule {
-    private const val BASE_URL = "http://192.168.21.44:443/api/"
+    private const val BASE_URL = "http://192.168.21.39:8090/api/"
 
     private val apiService: ApiService by lazy {
         RetrofitClient.create(BASE_URL)

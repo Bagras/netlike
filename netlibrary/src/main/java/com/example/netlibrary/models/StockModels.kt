@@ -11,5 +11,5 @@ data class Stock(
     val image: String
 ) {
     val imageUrl: String
-        get() = "http://192.168.21.44:443/api/files/$collectionId/$id/$image"
+        get() = "http://192.168.21.39:8090/api/files/$collectionId/$id/$image"
 }

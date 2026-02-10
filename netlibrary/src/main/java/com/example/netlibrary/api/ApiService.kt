@@ -35,7 +35,7 @@ interface ApiService {
 
     // Получение каталога
     @GET("collections/products/records")
-    suspend fun getProducts (): List<Product>
+    suspend fun getProducts (): Response<PaginatedResponse<Product>>
 
     // Поиск
     @GET("collections/products/records")

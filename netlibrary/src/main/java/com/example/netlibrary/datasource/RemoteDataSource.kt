@@ -57,7 +57,7 @@ class RemoteDataSource(private val apiService: ApiService) {
                 )
             }
 
-            response.body()?.items
+            response.body()?.items ?: emptyList()
                 ?: throw NetworkException(NetworkError.Unknown)
 
         } catch (e: IOException) {
@@ -69,15 +69,22 @@ class RemoteDataSource(private val apiService: ApiService) {
 
     suspend fun getProducts(): List<Product>{
         return try {
-            apiService.getProducts()
-        }  catch (e: IOException) {
+            val response = apiService.getProducts()
+
+            if (!response.isSuccessful) {
+                throw NetworkException(
+                    NetworkError.Api(
+                        response.code(),
+                        response.errorBody()?.string()
+                    )
+                )
+            }
+
+            response.body()?.items ?: emptyList()
+            ?: throw NetworkException(NetworkError.Unknown)
+
+        } catch (e: IOException) {
             throw NetworkException(NetworkError.NoInternet)
-        } catch (e: HttpException) {
-            throw NetworkException(
-                NetworkError.Api(e.code(), e.response()?.errorBody()?.string())
-            )
-        } catch (e: Exception) {
-            throw NetworkException(NetworkError.Unknown)
         }
     }
 
