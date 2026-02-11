@@ -23,3 +23,10 @@ data class Cart(
     val totalItems: Int,
     val totalPrice: Float
 )
+
+
+data class CreateCartRequest(
+    val userId: String,
+    val lastUpdated: String
+)
+

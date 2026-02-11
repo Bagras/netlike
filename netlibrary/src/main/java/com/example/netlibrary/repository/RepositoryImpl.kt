@@ -59,8 +59,16 @@ class RepositoryImpl(private val remote: RemoteDataSource) : Repository {
         return remote.searchProducts(query)
     }
 
-    override suspend fun getCart(): Cart {
-        return remote.getCart()
+    override suspend fun getUserCart(userId: String, token: String): List<CartItem> {
+        return remote.getUserCart(userId, token)
+    }
+
+
+    override suspend fun createCart(
+        userId: String,
+        token: String
+    ): List<CartItem> {
+        return remote.createCart(userId, token)
     }
 
     override suspend fun updateCart(request: List<CartItem>): Cart {

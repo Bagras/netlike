@@ -7,6 +7,7 @@ import com.example.netlibrary.models.AuthRequest
 import com.example.netlibrary.models.AuthResponse
 import com.example.netlibrary.models.Cart
 import com.example.netlibrary.models.CartItem
+import com.example.netlibrary.models.CreateCartRequest
 import com.example.netlibrary.models.Order
 import com.example.netlibrary.models.Product
 import com.example.netlibrary.models.Project
@@ -102,17 +103,51 @@ class RemoteDataSource(private val apiService: ApiService) {
         }
     }
 
-    suspend fun getCart(): Cart {
+    suspend fun getUserCart(userId: String, token: String): List<CartItem> {
         return try {
-            apiService.getCart()
-        }  catch (e: IOException) {
+            val filter = "user = '$userId'"
+            val response = apiService.getUserCart("Bearer $token", filter)
+
+            if (!response.isSuccessful) {
+                throw NetworkException(
+                    NetworkError.Api(
+                        response.code(),
+                        response.errorBody()?.string()
+                    )
+                )
+            }
+
+            response.body()?.items ?: emptyList()
+            ?: throw NetworkException(NetworkError.Unknown)
+
+        } catch (e: IOException) {
             throw NetworkException(NetworkError.NoInternet)
-        } catch (e: HttpException) {
-            throw NetworkException(
-                NetworkError.Api(e.code(), e.response()?.errorBody()?.string())
-            )
-        } catch (e: Exception) {
-            throw NetworkException(NetworkError.Unknown)
+        }
+    }
+
+    suspend fun createCart(userId: String, token: String): List<CartItem> {
+        val request = CreateCartRequest(
+            userId = userId,
+            lastUpdated = "2026-02-11T12:26:57.501Z"
+        )
+
+        return try {
+            val response = apiService.createCart("Bearer $token", request)
+
+            if (!response.isSuccessful) {
+                throw NetworkException(
+                    NetworkError.Api(
+                        response.code(),
+                        response.errorBody()?.string()
+                    )
+                )
+            }
+
+            response.body()?.items ?: emptyList()
+            ?: throw NetworkException(NetworkError.Unknown)
+
+        } catch (e: IOException) {
+            throw NetworkException(NetworkError.NoInternet)
         }
     }
 

@@ -4,6 +4,7 @@ import com.example.netlibrary.models.AuthRequest
 import com.example.netlibrary.models.AuthResponse
 import com.example.netlibrary.models.Cart
 import com.example.netlibrary.models.CartItem
+import com.example.netlibrary.models.CreateCartRequest
 import com.example.netlibrary.models.Order
 import com.example.netlibrary.models.PaginatedResponse
 import com.example.netlibrary.models.Product
@@ -16,6 +17,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
@@ -43,12 +45,18 @@ interface ApiService {
         @Query("filter") query: String
     )
 
-    //Получение описания товара
 
+    @GET("api/collections/carts/records")
+    suspend fun getUserCart(
+        @Header("Authorization") token: String,
+        @Query("filter") filter: String = "user='{userId}'"
+    ): Response<Cart>
 
-    // Добавление в корзину
-    @GET("collections/cart/records")
-    suspend fun getCart(): Cart
+    @POST("collections/carts/records")
+    suspend fun createCart(
+        @Header("Authorization") token: String,
+        @Body request: CreateCartRequest
+    ): Response<Cart>
 
     // Изменение корзины
     @POST("collections/cart/records")

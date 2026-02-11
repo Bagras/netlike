@@ -31,7 +31,9 @@ interface Repository {
 
     suspend fun searchProducts(query: String)
 
-    suspend fun getCart(): Cart
+    suspend fun getUserCart(userId: String, token: String): List<CartItem>
+
+    suspend fun createCart(userId: String, token: String): List<CartItem>
 
     suspend fun updateCart(@Body request: List<CartItem>): Cart
 
