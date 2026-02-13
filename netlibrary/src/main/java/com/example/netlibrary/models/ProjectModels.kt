@@ -6,7 +6,6 @@ data class Project(
     val collectionName: String,
     val created: String,
     val updated: String,
-
     val user: String,
     val title: String,
     val type: String,
@@ -14,15 +13,15 @@ data class Project(
     val endDate: String,
     val descriptionSource: String,
     val category: String,
-    val image: String?
+    val image: String
 )
 
 data class ProjectCreateRequest(
+    val user: String,
     val title: String,
     val type: String,
     val startDate: String,
     val endDate: String,
     val descriptionSource: String,
-    val category: String,
-    val image: String?
+    val category: String
 )
