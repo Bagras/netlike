@@ -11,17 +11,17 @@ data class User(
     val emailVisibility: Boolean,
     val verified: Boolean,
     val name: String?,
-    val surname: String?,
-    val patronymic: String?,
-    val birthDate: String?,
-    val gender: String?
+    val surname: String,
+    val patronymic: String,
+    val birthDate: String,
+    val gender: String
 )
-
 
 data class UserCreateRequest(
     val email: String,
     val password: String,
     val passwordConfirm: String,
+    val username: String,
     val surname: String,
     val patronymic: String,
     val birthDate: String,
